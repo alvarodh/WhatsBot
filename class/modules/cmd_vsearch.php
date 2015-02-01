@@ -11,7 +11,9 @@
 			if(empty($Config['max']))
 				$Config['max'] = 10;
 
-			$Data = Youtube::Search($Text, $Config['key'], $Config['max']);
+			$Youtube = new Youtube($Config['key']);
+
+			$Data = $Youtube->SearchVideo($Text, $Config['max']);
 
 			if($Data !== false)
 			{

@@ -1,13 +1,49 @@
 <?php
-	class Youtube
+	// Dividir las clases en diferentes archivos
+
+	Unirest\Request::verifyPeer(false);
+	Unirest\Request::jsonOpts(true);
+
+	abstract class YoutubeCore
 	{
-		public static function Search($Query, $Key, $MaxResults = 10)
+		private $Key = null;
+
+		public function __construct($Key)
+		{
+			$this->Key = $Key;
+		}
+
+		protected function Request($Action, Array $Params = array(), $Json = true, $WithKey = true)
+		{
+			if($WithKey)
+				$Params['key'] = $this->Key;
+
+			$Params = http_build_query($Params);
+
+			$Data = Unirest\Request::get("https://www.googleapis.com/youtube/v3/{$Action}?{$Params}");
+
+			if($Data->code === 200)
+				return $Json ? $Data->body : $Data->raw_body;
+
+			return false;
+		}
+	}
+
+	class YoutubeAPI extends YoutubeCore
+	{
+		public function SearchVideo($Query, $MaxResults = 10)
 		{ // Implement pageToken
-			$Query = urlencode($Query);
+			$Params = array
+			(
+				'q' => $Query,
+				'maxResults' => $MaxResults,
+				'type' => 'video',
+				'part' => 'snippet'
+			);
 
-			$Data = Utils::GetRemoteJson("https://www.googleapis.com/youtube/v3/search?key={$Key}&q={$Query}&maxResults={$MaxResults}&type=video&part=snippet");
+			$Data = $this->Request('search', $Params);
 
-			if($Data !== false && $Data['kind'] === 'youtube#searchListResponse')
+			if(is_array($Data) && $Data['kind'] === 'youtube#searchListResponse')
 			{
 				$Response = array();
 
@@ -48,4 +84,8 @@
 
 			return false;
 		}
+	}
+
+	class Youtube extends YoutubeAPI
+	{
 	}
