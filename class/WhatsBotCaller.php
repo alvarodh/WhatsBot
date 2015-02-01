@@ -1,8 +1,6 @@
 <?php
 	require_once 'Utils.php';
 	require_once 'Lang.php';
-	include_once 'Utils/TempFile.php';
-	require_once 'Utils/Unirest.php';
 
 	class WhatsBotCaller
 	{
