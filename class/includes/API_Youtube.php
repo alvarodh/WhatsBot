@@ -215,7 +215,7 @@
 					if($First['match'] === $Second['match'])
 						return 0;
 
-					return ($First['match'] < $Second['match']) ? -1 : 1;
+					return ($First['match'] > $Second['match']) ? -1 : 1;
 				});
 
 				return $Videos;
