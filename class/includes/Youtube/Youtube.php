@@ -27,7 +27,7 @@
 					if($this->_IsVerifiedChannel($Videos[$i]['channel']['id']))
 						$Videos[$i]['match'] += 15;
 
-					if(strpos($Videos[$i]['title_lower'], 'vevo') !== false) // Ends with?
+					if(strpos($Videos[$i]['channel']['title_lower'], 'vevo') !== false) // Ends with?
 						$Videos[$i]['match'] += 15;
 
 					if(strpos($Videos[$i]['channel']['title_lower'], 'official') !== false || strpos($Videos[$i]['channel']['title_lower'], 'oficial'))
@@ -68,11 +68,9 @@
 					}
 					else
 					{
-						// Shuffle
+						$Videos[$i]['similar'] = 0;
 
-						$Max = 0;
-
-						$Words = str_word_count($Text, 1);
+						$Words = str_word_count($Videos[$i]['title_lower'], 1);
 
 						$Limit = count($Words);
 						$Limit *= $Limit;
@@ -82,13 +80,11 @@
 							$W = $Words;
 							shuffle($W);
 
-							similar_text(implode(' ', $Words), strtolower($Text), $M);
+							similar_text($Query1, implode(' ', $W), $M);
 
-							if($M > $Max)
-								$Max = $M;
+							if($M > $Videos[$i]['similar'])
+								$Videos[$i]['similar'] = $M;
 						}
-
-						$Videos[$i]['similar'] = $Max;
 					}
 
 					$Videos[$i]['match'] += $Videos[$i]['similar'];
