@@ -70,7 +70,6 @@
 					{
 						// Shuffle
 
-						/*
 						$Max = 0;
 
 						$Words = str_word_count($Text, 1);
@@ -89,12 +88,7 @@
 								$Max = $M;
 						}
 
-						if($Max >= 70)
-						{
-							$FoundedVideo = $Video;
-							break;
-						}
-						*/
+						$Videos[$i]['similar'] = $Max;
 					}
 
 					$Videos[$i]['match'] += $Videos[$i]['similar'];
