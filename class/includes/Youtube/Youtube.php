@@ -31,13 +31,14 @@
 						$Videos[$i]['match'] += 15;
 
 					if(strpos($Videos[$i]['channel']['title_lower'], 'vevo') !== false) // Ends with?
-						$Videos[$i]['match'] += 15;
+						$Videos[$i]['match'] += 20;
 
 					if(strpos($Videos[$i]['channel']['title_lower'], 'official') !== false || strpos($Videos[$i]['channel']['title_lower'], 'oficial'))
 						$Videos[$i]['match'] += 10;
 
 					# Title info
 
+					// Unset if != ?
 					if((strpos($Videos[$i]['title_lower'], 'cover') !== false) === (strpos($Query1, 'cover') !== false))
 						$Videos[$i]['match'] += 10;
 					if((strpos($Videos[$i]['title_lower'], 'remix') !== false) === (strpos($Query1, 'remix') !== false))
@@ -52,11 +53,16 @@
 
 					if($Artist !== null)
 					{
+						$ArtistLower = strtolower($Artist);
+
 						# Channel info
 
-						similar_text(strtolower($Artist), $Videos[$i]['channel']['title_lower'], $Similar);
+						similar_text($ArtistLower, $Videos[$i]['channel']['title_lower'], $Similar);
+						$Videos[$i]['match'] += (int) $Similar / 3;
 
-						$Videos[$i]['match'] += (int) $Similar / 10;
+						similar_text($ArtistLower . 'vevo', $Videos[$i]['channel']['title_lower'], $Similar)
+						if($Similar > 90)
+							$Videos[$i]['match'] += 25;
 
 						# Title info
 
