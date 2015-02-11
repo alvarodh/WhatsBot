@@ -20,6 +20,9 @@
 					$Videos[$i]['title_lower'] = strtolower($Videos[$i]['title']);
 					$Videos[$i]['channel']['title_lower'] = strtolower($Videos[$i]['channel']['title']);
 
+					$Videos[$i]['title_lower'] = preg_replace('/[^a-z\d ]/iu', '', $Videos[$i]['title_lower']);
+					$Videos[$i]['channel']['title_lower'] = preg_replace('/[^a-z\d ]/iu', '', $Videos[$i]['channel']['title_lower']);
+
 					$Videos[$i]['match'] = 0;
 
 					# Channel info
@@ -47,7 +50,6 @@
 					if(strpos($Videos[$i]['title_lower'], 'official') !== false || strpos($Videos[$i]['title_lower'], 'oficial') !== false)
 						$Videos[$i]['match'] += 10;
 
-					// Delete non-alphnum chars
 					if($Artist !== null)
 					{
 						# Channel info
