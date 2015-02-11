@@ -21,7 +21,7 @@
 				$Videos = $Youtube->SearchMusic($Text, null, $Config['max']);
 
 			if(!empty($Videos[0]) && $Videos[0]['match'] > 80)
-				$Whatsapp->SendMessage($From, "https://youtube.com/watch?v={$Videos[0]['id']}");
+				$Whatsapp->SendMessage($From, "https://youtube.com/watch?v={$Videos[0]['id']}"); // Send?
 			else
 				$Whatsapp->SendMessage($From, "We can't found the video...");
 		}
