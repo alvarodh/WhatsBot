@@ -60,7 +60,7 @@
 						similar_text($ArtistLower, $Videos[$i]['channel']['title_lower'], $Similar);
 						$Videos[$i]['match'] += (int) $Similar / 3;
 
-						similar_text($ArtistLower . 'vevo', $Videos[$i]['channel']['title_lower'], $Similar)
+						similar_text($ArtistLower . 'vevo', $Videos[$i]['channel']['title_lower'], $Similar);
 						if($Similar > 90)
 							$Videos[$i]['match'] += 25;
 
