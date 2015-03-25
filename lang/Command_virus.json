@@ -1,0 +1,5 @@
+{
+	"help":"Analiza una URL de virus",
+	"usage":"Usage: !virus <url>. Example: !virus https://www.google.com",
+	"message:send":"Resultados del Antivirus, %s infecciones"
+}
