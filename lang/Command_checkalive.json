@@ -1,0 +1,8 @@
+{
+	"help":"Check Alive a website",
+	"usage":"Usage: !checkalive <url>. Example: !checkalive http://www.google.com",
+
+	"message:result":"The domain is %d",
+
+	"message:cant_connect":"Sorry, we can't search it, there is an internal problem. If you are the admin, ¡see the logs!"
+}
